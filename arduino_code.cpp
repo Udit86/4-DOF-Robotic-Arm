@@ -19,9 +19,9 @@ float theta3 = 180 - phi3;
 
 void setup(){
     servo1.attach(13);
-    servo1.attach(12);
-    servo1.attach(11);
-    servo1.attach(10);
+    servo2.attach(12);
+    servo3.attach(11);
+    servo4.attach(10);
 
     servo1.write(theta1);
     servo2.write(theta2);
