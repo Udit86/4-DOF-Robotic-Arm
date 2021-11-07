@@ -12,7 +12,7 @@ float* armAngles(float x, float y){
     float r2 = z-a1;
     float r3 = sqrt(r1*r1 + r2*r2);
 
-    float phi1 = acos((a3*a3 - a2*a2 - r3*r3)/(-2*a2*a3));
+    float phi1 = acos((a3*a3 - a2*a2 - r3*r3)/(-2*a2*r3));
     float phi2 = atan(r2/r1);
     float phi3 = acos((r3*r3 - a2*a2 - a3*a3)/(-2*a3*a2));
 
