@@ -89,7 +89,8 @@ def coordinates():
 while True:
     obj_points = coordinates()
     for i in range(2):
-        serialcomm.write(obj_points[i].encode())
+        #serialcomm.write(obj_points[i].encode())
+        print(obj_points[i])
         time.sleep(0.5)
     print("next")
     time.sleep(5)
