@@ -4,8 +4,8 @@ import numpy as np
 import serial
 import time
 
-serialcomm = serial.Serial('/dev/ttyACM0', 9600)
-serialcomm.timeout = 1
+#serialcomm = serial.Serial('/dev/ttyACM0', 9600)
+#serialcomm.timeout = 1
 
 def empty(x):
     pass
@@ -23,8 +23,7 @@ cv2.createTrackbar("Value_max", "HSV", 255, 255, empty)
 cap = cv2.VideoCapture("http://192.168.29.87:4747/video")
 #cap=cv2.VideoCapture(0)
 
-def coordinates():
-    ret, frame = cap.read()
+def coordinates(frame):
     # print(frame)
     img=cv2.resize(frame, None, fx=1 , fy=1)
     HSV_img=cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -77,22 +76,22 @@ def coordinates():
     points = [Cx,Cy]
     cv2.imshow("Gray Image", img_gray)
     cv2.imshow("Original Image", img)
-    
     cv2.imshow("Result", result)
     # cv2.imshow('frame',img)
     #if cv2.waitKey(1)==ord('q'):
     #    break
+    cv2.waitKey(1)
     return points
 #cap.release()
 #cv2.destroyAllWindows()
 
 while True:
-    obj_points = coordinates()
+    ret, frame = cap.read()
+    obj_points = coordinates(frame)
     for i in range(2):
         #serialcomm.write(obj_points[i].encode())
+        #time.sleep(0.5)
         print(obj_points[i])
-        time.sleep(0.5)
     print("next")
-    time.sleep(5)
 
 serialcomm.close()
