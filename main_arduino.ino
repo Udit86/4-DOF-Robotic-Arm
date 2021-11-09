@@ -1,5 +1,6 @@
 #include<math.h>
 #include<Servo.h>
+#include<string.h>
   //in cenitmeters
 float coordinates[2];
 const float a1=9, a2=9, a3=9, z=4;
@@ -44,8 +45,9 @@ void loop()
 {
   if(Serial.available()>0){
     for(int i=0;i<2;i++){
-      coordinates[i]=Serial.parseFloat();
-      delay(500);
+      String input = Serial.readStringUntil('\n');
+      float f =atof(input.c_str());
+      coordinates[i]=f;
       }
     Serial.println(coordinates[0]);
     Serial.println(coordinates[1]);
