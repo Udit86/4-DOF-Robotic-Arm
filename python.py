@@ -3,10 +3,12 @@ import cv2
 import numpy as np
 import serial
 import time
+import struct
 
-#serialcomm = serial.Serial('/dev/ttyACM0', 9600)
-#serialcomm.timeout = 1
+serialcomm = serial.Serial('/dev/ttyACM0', 9600)
+serialcomm.timeout = 1
 
+hold =0
 def empty(x):
     pass
 
@@ -70,10 +72,13 @@ def coordinates(frame):
                 Cy=int(M["m01"]/M["m00"])
                 break
             
-
-    print("X: ", Cx) 
-    print("Y: ", Cy)
-    points = [Cx,Cy]
+    Cx = (Cx/img.shape[1])*18
+    Cy = (Cy/img.shape[0])*18
+    sCx = str(Cx)
+    sCy = str(Cy)
+    #print("X: ", Cx) 
+    #print("Y: ", Cy)
+    points = sCx + "," + sCy
     cv2.imshow("Gray Image", img_gray)
     cv2.imshow("Original Image", img)
     cv2.imshow("Result", result)
@@ -88,10 +93,10 @@ def coordinates(frame):
 while True:
     ret, frame = cap.read()
     obj_points = coordinates(frame)
-    for i in range(2):
-        #serialcomm.write(obj_points[i].encode())
-        #time.sleep(0.5)
-        print(obj_points[i])
-    print("next")
+    if hold%200 ==0:
+        print(obj_points)
+        serialcomm.write(obj_points.encode())
+    hold = hold +1
+    #print("next",hold)
 
 serialcomm.close()
