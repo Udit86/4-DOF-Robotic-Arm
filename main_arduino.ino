@@ -1,11 +1,32 @@
 #include<math.h>
 #include<Servo.h>
 #include<string.h>
+
   //in cenitmeters
 float coordinates[2];
 const float a1=9, a2=9, a3=9, z=4;
 
 Servo servo1, servo2, servo3, servo4;
+String first(String s)
+{
+    String ans="";
+    for(int i=0; i<s.length(); i++)
+    {
+        if(s[i]==',') break;
+        ans = ans + s[i];
+    }
+    return ans;
+}
+String second(String s)
+{
+    String ans="";
+    for(int i=s.length()-1; i>=0; i--)
+    {
+        if(s[i]==',') break;
+        ans=s[i]+ans;
+    }
+    return ans;
+}
 
 float* armAngles(float x, float y){
 
@@ -44,11 +65,13 @@ void setup(){
 void loop()
 {
   if(Serial.available()>0){
-    for(int i=0;i<2;i++){
-      String input = Serial.readStringUntil('\n');
-      float f =atof(input.c_str());
-      coordinates[i]=f;
-      }
+    String input = Serial.readStringUntil('\n');
+    String x = first(input);
+    String y = second(input);
+    float fx =atof(x.c_str());
+    float fy =atof(y.c_str());
+    coordinates[0]= fx;
+    coordinates[1]= fy;
     Serial.println(coordinates[0]);
     Serial.println(coordinates[1]);
     float *servo_angles=armAngles(coordinates[0],coordinates[1]);
