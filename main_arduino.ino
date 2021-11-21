@@ -31,7 +31,7 @@ String second(String s)
 float* armAngles(float x, float y){
 
     float r1 = sqrt(x*x + y*y); 
-    float r2 = z-a1;
+    float r2 = a1-z;
     float r3 = sqrt(r1*r1 + r2*r2);
 
     float phi1 = acos((a3*a3 - a2*a2 - r3*r3)/(-2*a2*r3));
@@ -43,12 +43,7 @@ float* armAngles(float x, float y){
     static float theta[4];
     float param = 180/(2*acos(0.0));
     theta[0] = atan(y/x)*param;
-    if (phi2>=0){
-        theta[1] = (phi2-phi1)*param;
-    }
-    else{
-        theta[1] = (phi1-phi2)*param;
-    }
+    theta[1] = 90 - (phi1-phi2)*param;
     theta[2] = 180 - (phi3*param);
 
     return theta;
