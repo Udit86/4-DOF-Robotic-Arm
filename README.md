@@ -1,5 +1,4 @@
-# 4-DOF-Robotic-Arm
-A Computer- vision based 4 DOF robotic Arm
+# A Computer Vision based 4-DOF Robotic Arm
 The Robotic Arm is designed to seperate objects of same colour from a lot of differently coloured objects. 
 
 Steps to run the project after assembling the Robotic- Arm chassis :
